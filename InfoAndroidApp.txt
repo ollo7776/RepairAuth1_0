@@ -1,0 +1,6 @@
+Die Anwendung dient der Erfassung von Fahrzeugstörungen.
+
+
+AusfalApp. Die Anwendung dient der Erfassung von Fahrzeugstörungen, die dem Fahrer auffallen. Über das Formular kann der Fahrer Angaben zur Fahrzeugnummer machen, eine Beschreibung des Fehlers eingeben, den Status des Fehlers markieren (abhängig vom Risiko, das ein bestimmter Fehler für die Fahrt darstellt), das entsprechende Symbol markieren und ggf. eine Angabe machen Methode zur vorübergehenden Beseitigung des Problems. Das Programm speichert eine Liste der gemeldeten Fehler, die dann von nachfolgenden Fahrern bestätigt oder ins Archiv verschoben werden kann, wenn der Fehler bereits behoben wurde oder nicht mehr auftritt.
+
+

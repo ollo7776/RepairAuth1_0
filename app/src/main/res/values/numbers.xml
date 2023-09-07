@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="numbers_array">
+        <item>6401</item>
+        <item>6402</item>
+        <item>6403</item>
+        <item>6404</item>
+        <item>6405</item>
+        <item>6406</item>
+        <item>6407</item>
+        <item>6408</item>
+    </string-array>
+</resources>

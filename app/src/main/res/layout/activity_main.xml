@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_background"
+    android:gravity="end"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+<!--        <include layout="@layout/custom_menu_layout" />-->
+
+    <!--START FORM LAYOUT CARDVIEW-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_form_expand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="15dp"
+        app:contentPadding="5dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title_form_expand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" + NEUER FEHLER"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:padding="20dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/ic_baseline_bus_alert_24" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--            SCROLL VIEW FOR FORM-->
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layout_form_expand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!--   START FORM -> INPUT NUMBER AND STATUS RADIO BUTTONS FIELDS ON CARDVIEW-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="5dp"
+                            android:layout_weight="0.5">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_marginBottom="12dp"
+                                android:hint="Nummer">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/act_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="10dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </androidx.cardview.widget.CardView>
+                        <!--        END CARDVIEW NUMMER FORM-->
+
+                        <!--      START  CARD VIEW STATUS-->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="5dp"
+                            android:layout_weight="0.5">
+
+                            <TextView
+                                android:id="@+id/tv_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:text="Status" />
+
+                            <RadioGroup
+                                android:id="@+id/radio_group_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|center"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/radio_btn_status_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/radio_btn_custom_danger"
+                                    android:button="@color/transparent" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_btn_status_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/radio_btn_custom_warning"
+                                    android:button="@color/transparent" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_btn_status_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/radio_btn_custom_ok"
+                                    android:button="@color/transparent" />
+                            </RadioGroup>
+                        </androidx.cardview.widget.CardView>
+                        <!-- END -> CARD VIEW STATUS-->
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <!--    END NUMMER AND STATUS FORM-->
+
+
+                    <!-- END FORM -> INPUT NUMBER AND STATUS RADIO BUTTONS FIELDS ON CARDVIEW-->
+
+                    <!-- STRART FORM -> DESCRIPTION TRYTOREPAIR INPUTTEXTS CARDVIEW -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:hint="Beschreibung"
+                                app:endIconCheckable="true"
+                                app:endIconMode="custom"
+                                app:endIconTint="@color/black">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:hint="Reparatur Methode"
+                                app:endIconCheckable="true"
+                                app:endIconMode="custom"
+                                app:endIconTint="@color/black">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_try_to_repair"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.cardview.widget.CardView>
+                    <!-- END FORM -> DESCRIPTION TRYTOREPAIR INPUTTEXTS CARDVIEW -->
+
+                    <!--   START LAYOUT WITH RECYCLERVIEW FOR ICONS TO CHOOSE-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <!-- RECYCLER VIEW FOR ICONS -->
+                            <androidx.core.widget.NestedScrollView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:fadeScrollbars="false"
+                                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                                android:scrollbarSize="30dp"
+                                android:scrollbars="horizontal">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recycler_view_icons"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    />
+                            </androidx.core.widget.NestedScrollView>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="-14dp"
+                                android:layout_marginRight="15dp"
+                                android:src="@drawable/ic_baseline_arrow_right_alt_24" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.cardview.widget.CardView>
+                    <!-- END LAYOUT WITH RECYCLERVIEW FOR ICONS TO CHOOSE-->
+
+                    <!-- BUTTONS -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_insert"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/shadow_rect"
+                                android:backgroundTint="@color/dark_green"
+                                android:text="Speichern"
+                                android:textColor="@color/white" />
+
+                            <ImageButton
+                                android:id="@+id/btn_delete"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/shadow_rect"
+                                android:backgroundTint="@color/dark_green"
+                                android:src="@drawable/ic_baseline_delete_forever_24"
+                                android:textColor="@color/white" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.cardview.widget.CardView>
+
+                    <!--    PROGRESS BAR CARDVIEW-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp"
+                            android:layout_margin="10dp"
+                            android:progress="5"
+                            android:progressBackgroundTint="@color/light_gray"
+                            android:progressTint="@color/dark_green" />
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </ScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--END FORM LAYOUT CARDVIEW-->
+
+
+    <!--    RECORD LIST-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_fetch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shadow_rect"
+            android:backgroundTint="@color/dark_green"
+            android:src="@drawable/ic_baseline_refresh_24"
+            android:textColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

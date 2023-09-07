@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nachricht schreiben"
+        android:layout_margin="24dp"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:gravity="center"
+/>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_message_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:hint="Ihre E-Mail Adresse"
+        android:layout_margin="20dp"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_message_email_confirm"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:hint="Bestätigen Ihre E-Mail"
+        android:layout_margin="20dp"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_message_title"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:hint="Thema"
+        android:layout_margin="20dp"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_message_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:hint="Ihre Nachricht"
+        android:layout_margin="20dp"
+        />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_message_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Senden"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_to_login_from_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:padding="20dp"
+            android:layout_marginVertical="20dp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

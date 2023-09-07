@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recordItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/gradient_square_black"
+    android:orientation="horizontal"
+    android:elevation="5dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/icon_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.75"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginVertical="0dp"
+
+        >
+
+        <ImageView
+            android:id="@+id/icon_view_svg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="5dp"
+
+            />
+
+<!--        <androidx.appcompat.widget.AppCompatCheckBox-->
+<!--            android:id="@+id/icon_checkbox"-->
+<!--            android:layout_width="61dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center|end"-->
+<!--            android:layout_marginLeft="-15dp"-->
+<!--            android:layout_marginTop="-65dp"-->
+<!--            android:button="@drawable/checkbox_custom"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:scaleX="1"-->
+<!--            android:scaleY="1"-->
+<!--            android:layout_marginRight="1dp"-->
+<!--            android:layout_marginStart="0dp"-->
+<!--            />-->
+
+    </LinearLayout>
+</LinearLayout>

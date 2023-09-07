@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_record_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--    TITLE AUSFAL INFO and BUTTON CLOSE-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="0.8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="AUSFALL INFO"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <ImageButton
+                    android:id="@+id/btn_edit_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/ic_outline_close_circle_outline_24" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--  END  TITLE AUSFAL INFO and BUTTON CLOSE-->
+
+            <!-- SERVICE CARD-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/gradient_service_card_records"
+                android:orientation="vertical"
+                app:cardCornerRadius="5dp">
+
+                <!--        ID TEXTVIEW-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="3dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:labelFor="@+id/edit_tv_id"
+                        android:text="ID: "
+                        android:textColor="@color/light_gray" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/edit_tv_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_margin="2dp"
+                        android:text="DATABASE ID"
+                        android:textColor="@color/light_gray"
+                        android:textSize="12sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--    END    ID TEXTVIEW-->
+
+                <!--TITLE SERVICE CARD AND NUMBER-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tvs_title_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/start_date"
+                        android:text="Service Card" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/card_view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_directions_bus_24" />
+
+                    <TextView
+                        android:id="@+id/edit_tv_number"
+                        style="@style/tvs_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Number"
+                        android:textSize="24sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!-- END TITLE SERVICE CARD AND NUMBER-->
+
+                <!--START DATUM-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/card_view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_outline_keyboard_tab_24" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/edit_tv_start_date"
+                        style="@style/tvs_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start Datum" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!-- END START DATUM-->
+
+                <!--CHECK DATUM-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/card_view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_outline_loop_24"
+                        android:tooltipText="Gecheckt" />
+
+                    <!-- RECYCLER VIEW FOR CHECKED DATES ON RECORD -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/dark_gray"
+                        >
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/edit_tv_check_date_list"
+                            style="@style/tvs_card_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:text="Check Date" />
+                    </HorizontalScrollView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--END CHECK DATUM-->
+
+                <!--        DESCRIPTIOM ICON AND TEXTVIEW-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/card_view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_text_snippet_24"
+                        android:tooltipText="Description icon" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/edit_tv_description"
+                        style="@style/tvs_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="description" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--  END      DESCRIPTIOM ICON AND TEXTVIEW-->
+
+                <!--        TRY TO REPAIR ICON AND FIELD-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/card_view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_wrench_24" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/edit_tv_try_to_repair"
+                        style="@style/tvs_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="try to repair" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--   END     TRY TO REPAIR ICON AND FIELD-->
+
+                <!--        STATUS LABEL AND TEXTVIEW-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tvs_label_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/edit_tv_status"
+                        android:text="Status: " />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/edit_tv_status"
+                        style="@style/tvs_card_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="status" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--   END     STATUS LABEL AND TEXTVIEW-->
+
+                <!--        ICON RECYCLER VIEW-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_gray">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/edit_icon_recyclerview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--    END    ICON RECYCLER VIEW-->
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--END SERVICE CARD-->
+
+            <!--TITLE FEHLER Bestätigen-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="3dp"
+                android:text="FEHLER BESTÄTIGUNG"
+                android:textSize="16sp"
+                android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
+            <!--END TITLE FEHLER Bestätigen-->
+
+            <!--    TWO BUTTONS WITH BESTÄTIGUNG-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                >
+                <!--        ORANGE BUTTON FEHLER BESTÄTIGEN-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/gradient_rectangle_red"
+                    android:elevation="15dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Der Fehler besteht immer noch!"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/current_date_not_repaired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_margin="5dp"
+                        android:text="shows current date and time"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="left"
+                        >
+                        <androidx.constraintlayout.utils.widget.ImageFilterButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="left"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/ic_baseline_bus_alert_24" />
+                            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                                android:id="@+id/btn_date_not_repaired"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/ic_baseline_arrow_circle_right_24" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--    END    ORANGE BUTTON FEHLER BESTÄTIGEN-->
+                <!--        GREEN BUTTON FEHLER BEHOBEN-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/gradient_rectangle_green"
+                    android:elevation="15dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Der Fehler wurde behoben."
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/current_date_repaired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_margin="5dp"
+                        android:text="shows current date and time"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.constraintlayout.utils.widget.ImageFilterButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="left"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/ic_baseline_directions_bus_24" />
+                        <androidx.constraintlayout.utils.widget.ImageFilterButton
+                            android:id="@+id/btn_date_repaired"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="left"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/ic_baseline_arrow_circle_right_24" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--   END     GREEN BUTTON FEHLER BEHOBEN-->
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--  END  TWO BUTTONS WITH BESTÄTIGUNG-->
+
+            <!--BUTTON LÖSCHEN-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="15dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="15dp"
+                >
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:orientation="vertical"
+                    >
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_edit_remove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/shadow_rect"
+                        android:backgroundTint="@color/dark_green"
+                        android:drawableEnd="@drawable/ic_baseline_delete_forever_24"
+                        android:padding="10dp"
+                        android:text="Komplett entfernen "
+                        android:textColor="@color/white" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textAlignment="gravity"
+                        android:text="@string/info_komplett_entfernen"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+            <!-- END  BUTTON LÖSCHEN-->
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</LinearLayout>
+
+

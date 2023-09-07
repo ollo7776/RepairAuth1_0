@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "532812271736",
+    "project_id": "repairauth-58979",
+    "storage_bucket": "repairauth-58979.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532812271736:android:3166f2b5c26b89b3d55d8d",
+        "android_client_info": {
+          "package_name": "com.ollo.repairauth1_0"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532812271736-pa6et0r8qu0c458a60ui8gsngppqtikm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx4ebvWdo0Cl8wi781Svd6Ktyn-ZIHHDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532812271736-pa6et0r8qu0c458a60ui8gsngppqtikm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
