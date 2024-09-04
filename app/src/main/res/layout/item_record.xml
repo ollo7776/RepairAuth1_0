@@ -27,19 +27,29 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:text="user@email"
+                    android:textColor="@color/dark_gray" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:gravity="end"
                     android:labelFor="@+id/tv_id"
                     android:text="ID: "
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/dark_gray" />
 
                 <TextView
                     android:id="@+id/tv_id"
@@ -47,8 +57,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_margin="2dp"
+                    android:gravity="end"
                     android:text="DATABASE ID"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/dark_gray"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -77,8 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Number"
-                    android:textSize="24sp"
-                    />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
@@ -101,59 +111,67 @@
                     android:text="Start Datum" />
 
             </LinearLayout>
-            <!--CHECK DATUM-->
+            <!--CHECK DATE, LAST ONE-->
             <LinearLayout
+                android:id="@+id/check_date_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
-                >
+                android:textAlignment="center">
 
-              <androidx.appcompat.widget.AppCompatImageView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@drawable/ic_outline_loop_24"
-                  style="@style/card_view_icon"
-                  android:tooltipText="Gecheckt"
-                  />
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/card_view_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_outline_loop_24"
+                    android:tooltipText="Gecheckt" />
 
-                <!-- RECYCLER VIEW FOR CHECKED DATES ON RECORD -->
-                <HorizontalScrollView
+                <TextView
+                    android:id="@+id/check_date_last_one"
+                    style="@style/tvs_card_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="Check Date" />
+
+            </LinearLayout>
+            <!-- END CHECK DATE, LAST ONE-->
+
+            <!--CHECK DATE EXPAND LAYOUT-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_dates_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/dark_gray"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        >
-
-                        <TextView
-                            android:id="@+id/check_date_list"
-                            style="@style/tvs_card_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:text="Check Date" />
-                    </LinearLayout>
-                </HorizontalScrollView>
-            </LinearLayout>
-
+                    android:layout_marginTop="5dp">
+                    <!-- RECYCLER VIEW FOR DATES ON RECORD -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_dates_on_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </ScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--END CHECK DATE EXPAND-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-               <androidx.appcompat.widget.AppCompatImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/ic_baseline_text_snippet_24"
-                   style="@style/card_view_icon"
-                   android:tooltipText="Description icon"
-                   />
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/card_view_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_text_snippet_24"
+                    android:tooltipText="Description icon" />
 
                 <TextView
                     android:id="@+id/tv_description"
@@ -168,12 +186,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-               <androidx.appcompat.widget.AppCompatImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/ic_baseline_wrench_24"
-                   style="@style/card_view_icon"
-                   />
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/card_view_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_wrench_24" />
 
                 <TextView
                     android:id="@+id/tv_try_to_repair"
@@ -195,26 +212,23 @@
                     android:text="Status" />
             </LinearLayout>
 
-<!--LAYOUT WITH ICONS RECYCLERVIEW AND EDIT BUTTON-->
+            <!--LAYOUT WITH ICONS RECYCLERVIEW AND EDIT BUTTON-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="10"
-                >
+                android:weightSum="10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_weight="2"
-                    >
+                    android:layout_weight="2">
 
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        >
+                        android:layout_marginTop="5dp">
                         <!-- RECYCLER VIEW FOR ICONS ON RECORD -->
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -227,8 +241,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:layout_weight="6"
-                                />
+                                android:layout_weight="6" />
                         </LinearLayout>
                     </ScrollView>
                 </LinearLayout>
@@ -237,9 +250,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_weight="8"
-                    >
+                    android:gravity="right">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
@@ -253,23 +265,19 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/ic_baseline_chip_card_24"
                             android:backgroundTint="@color/dark_gray"
-                            android:elevation="2dp"
-                            />
+                            android:elevation="2dp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="EDITION"
-                            android:textSize="12sp"
                             android:layout_marginLeft="11dp"
                             android:layout_marginTop="-10dp"
+                            android:text="EDITION"
                             android:textColor="@color/light_gray"
-                            />
-
+                            android:textSize="12sp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

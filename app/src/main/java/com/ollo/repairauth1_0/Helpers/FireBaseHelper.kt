@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ollo.repairauth1_0.Model.RecordModel
+import com.ollo.repairauth1_0.Model.UserModel
 
 class FireBaseHelper {
     companion object {
@@ -47,6 +48,39 @@ class FireBaseHelper {
             return dbMesage
         }
 
+//        fun saveUsersRepairs(
+//            userEMail: String,
+//            number: String,
+//        ): String {
+//            var dbMesage = "0"
+//            dbRef = FirebaseDatabase.getInstance().getReference("UsersRepairs")
+//            val usersRepairsId = dbRef.push().key!!
+//            val record = UserModel(
+//                usersRepairsId,
+//                userEMail,
+//                number,
+//            )
+//            dbRef.child(usersRepairsId).setValue(record).addOnCompleteListener {
+//                dbMesage = "1"
+//            }.addOnFailureListener { err ->
+//                dbMesage = "Error ${err.message}"
+//            }
+//            return dbMesage
+//        }
+
+//        fun insertUserRepairsNum(
+//            numRepairs: String,
+//        ): String {
+//            var dbMesage = "0"
+//            dbRef = FirebaseDatabase.getInstance().getReference("TestUserRepairs")
+//            val repairId = dbRef.push().key!!
+//            dbRef.child(repairId).setValue(numRepairs).addOnCompleteListener {
+//                dbMesage = "1"
+//            }.addOnFailureListener { err ->
+//                dbMesage = "Error ${err.message}"
+//            }
+//            return dbMesage
+//        }
         fun deleteRecord(id: String) {
             FirebaseDatabase.getInstance().getReference("Repairs").child(id).removeValue()
                 .addOnSuccessListener {
@@ -73,6 +107,7 @@ class FireBaseHelper {
             dbRef = FirebaseDatabase.getInstance().getReference("Repairs")
             dbRef.child(id).child("checkDateList").setValue(checkDateList)
         }
+
         fun addEndDate(id: String, endDate: String) {
             dbRef = FirebaseDatabase.getInstance().getReference("Repairs")
             dbRef.child(id).child("endDate").setValue(endDate)

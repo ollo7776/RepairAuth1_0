@@ -97,45 +97,58 @@
                     android:text="Start Datum" />
 
             </LinearLayout>
-            <!--CHECK DATUM-->
+
+            <!--CHECK DATE, LAST ONE-->
             <LinearLayout
+                android:id="@+id/a_check_date_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
-                >
+                android:textAlignment="center">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/card_view_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_outline_loop_24"
-                    style="@style/card_view_icon"
-                    android:tooltipText="Gecheckt"
-                    />
+                    android:tooltipText="Gecheckt" />
 
-                <!-- RECYCLER VIEW FOR CHECKED DATES ON RECORD -->
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/a_check_date_last_one"
+                    style="@style/tvs_card_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="Check Date" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/light_gray"
-                        >
-
-                        <TextView
-                            android:id="@+id/tva_check_date_list"
-                            style="@style/tvs_card_view_a"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:text="Check Date" />
-                    </LinearLayout>
-                </HorizontalScrollView>
             </LinearLayout>
+            <!-- END CHECK DATE, LAST ONE-->
 
+            <!--CHECK DATE EXPAND LAYOUT-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/a_layout_dates_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp">
+                    <!-- RECYCLER VIEW FOR DATES ON RECORD -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/a_rv_dates_on_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </ScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--END CHECK DATE EXPAND-->
+
+<!--DESCRIPTION TEXT VIEW-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:text="Description" />
             </LinearLayout>
+            <!-- END DESCRIPTION TEXT VIEW-->
 
             <LinearLayout
                 android:layout_width="wrap_content"

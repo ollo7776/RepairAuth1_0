@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="numbers_array">
+        <item>6400</item>
         <item>6401</item>
         <item>6402</item>
         <item>6403</item>
@@ -9,5 +10,88 @@
         <item>6406</item>
         <item>6407</item>
         <item>6408</item>
+        <item>6409</item>
+        <item>6410</item>
+        <item>6411</item>
+        <item>6412</item>
+        <item>6413</item>
+        <item>6414</item>
+        <item>6415</item>
+        <item>6416</item>
+        <item>6417</item>
+        <item>6418</item>
+        <item>6419</item>
+        <item>6420</item>
+        <item>6421</item>
+        <item>6422</item>
+        <item>6423</item>
+        <item>6424</item>
+        <item>6425</item>
+        <item>6426</item>
+        <item>6427</item>
+        <item>6428</item>
+        <item>6429</item>
+        <item>6430</item>
+        <item>6431</item>
+        <item>6432</item>
+        <item>6433</item>
+        <item>6434</item>
+        <item>6435</item>
+        <item>6436</item>
+        <item>6437</item>
+        <item>6438</item>
+        <item>6439</item>
+        <item>6440</item>
+
+        <item>9400</item>
+        <item>9401</item>
+        <item>9402</item>
+        <item>9403</item>
+        <item>9404</item>
+        <item>9405</item>
+        <item>9406</item>
+        <item>9407</item>
+        <item>9408</item>
+        <item>9409</item>
+        <item>9411</item>
+        <item>9412</item>
+        <item>9413</item>
+        <item>9414</item>
+        <item>9415</item>
+        <item>9416</item>
+        <item>9417</item>
+        <item>9418</item>
+
+
+        <item>800</item>
+        <item>801</item>
+        <item>802</item>
+        <item>803</item>
+        <item>804</item>
+        <item>805</item>
+        <item>806</item>
+        <item>807</item>
+        <item>808</item>
+        <item>809</item>
+        <item>811</item>
+        <item>812</item>
+        <item>813</item>
+        <item>814</item>
+        <item>815</item>
+        <item>816</item>
+        <item>817</item>
+        <item>818</item>
+        <item>819</item>
+        <item>820</item>
+        <item>822</item>
+        <item>823</item>
+        <item>824</item>
+        <item>825</item>
+        <item>826</item>
+        <item>827</item>
+        <item>828</item>
+
+
+
     </string-array>
 </resources>

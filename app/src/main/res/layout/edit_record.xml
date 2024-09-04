@@ -75,7 +75,7 @@
                         android:layout_gravity="right"
                         android:labelFor="@+id/edit_tv_id"
                         android:text="ID: "
-                        android:textColor="@color/light_gray" />
+                        android:textColor="@color/dark_gray" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/edit_tv_id"
@@ -84,7 +84,7 @@
                         android:layout_gravity="right"
                         android:layout_margin="2dp"
                         android:text="DATABASE ID"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/dark_gray"
                         android:textSize="12sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <!--    END    ID TEXTVIEW-->
@@ -146,8 +146,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingHorizontal="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         style="@style/card_view_icon"
@@ -156,25 +156,45 @@
                         android:src="@drawable/ic_outline_loop_24"
                         android:tooltipText="Gecheckt" />
 
-                    <!-- RECYCLER VIEW FOR CHECKED DATES ON RECORD -->
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/dark_gray"
-                        >
-
+                    <!-- TEXT VIEW FOR CHECKED DATES ON RECORD -->
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/edit_tv_check_date_list"
+                            android:id="@+id/edit_tv_check_date_last_one"
                             style="@style/tvs_card_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
                             android:text="Check Date" />
-                    </HorizontalScrollView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <!--END CHECK DATUM-->
 
-                <!--        DESCRIPTIOM ICON AND TEXTVIEW-->
+                <!-- CHECK DATES LIST HORIZONTAL-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layout_edit_dates_expand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    >
+
+                    <ScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        >
+                        <!-- RECYCLER VIEW FOR DATES ON EDIT RECORD -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_dates_on_edit_record"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+                    </ScrollView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--  END CHECK DATES LIST HORIZONTAL-->
+
+                <!--  DESCRIPTIOM ICON AND TEXTVIEW-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -275,8 +295,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                >
+                android:weightSum="2">
                 <!--        ORANGE BUTTON FEHLER BESTÄTIGEN-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -312,25 +331,27 @@
                         android:textColor="@color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="left"
-                        >
+                        android:orientation="horizontal">
+
                         <androidx.constraintlayout.utils.widget.ImageFilterButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="left"
                             android:layout_margin="5dp"
                             android:background="@drawable/ic_baseline_bus_alert_24" />
-                            <androidx.constraintlayout.utils.widget.ImageFilterButton
-                                android:id="@+id/btn_date_not_repaired"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/ic_baseline_arrow_circle_right_24" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.constraintlayout.utils.widget.ImageFilterButton
+                            android:id="@+id/btn_date_not_repaired"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/ic_baseline_arrow_circle_right_24" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <!--    END    ORANGE BUTTON FEHLER BESTÄTIGEN-->
                 <!--        GREEN BUTTON FEHLER BEHOBEN-->
@@ -372,12 +393,14 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <androidx.constraintlayout.utils.widget.ImageFilterButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="left"
                             android:layout_margin="5dp"
                             android:background="@drawable/ic_baseline_directions_bus_24" />
+
                         <androidx.constraintlayout.utils.widget.ImageFilterButton
                             android:id="@+id/btn_date_repaired"
                             android:layout_width="50dp"
@@ -399,14 +422,14 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="15dp"
                 android:elevation="5dp"
-                app:cardCornerRadius="15dp"
-                >
+                app:cardCornerRadius="15dp">
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
                     android:orientation="vertical"
-                    >
+                    android:padding="20dp">
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_edit_remove"
                         android:layout_width="wrap_content"
@@ -418,13 +441,14 @@
                         android:padding="10dp"
                         android:text="Komplett entfernen "
                         android:textColor="@color/white" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:textAlignment="gravity"
+                        android:justificationMode="inter_word"
                         android:text="@string/info_komplett_entfernen"
-                        />
+                        android:textAlignment="gravity" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
             <!-- END  BUTTON LÖSCHEN-->

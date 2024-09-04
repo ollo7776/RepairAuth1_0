@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-<!--        <include layout="@layout/custom_menu_layout" />-->
+    <!--        <include layout="@layout/custom_menu_layout" />-->
 
     <!--START FORM LAYOUT CARDVIEW-->
     <androidx.cardview.widget.CardView
@@ -34,15 +34,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/btn_up_down"
+                    />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/title_form_expand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" + NEUER FEHLER"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:padding="20dp"
-                    />
+                    android:text="NEUER FEHLER"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
@@ -53,17 +58,18 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-<!--            SCROLL VIEW FOR FORM-->
+            <!--            SCROLL VIEW FOR FORM-->
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/layout_form_expand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone" >
 
                     <!--   START FORM -> INPUT NUMBER AND STATUS RADIO BUTTONS FIELDS ON CARDVIEW-->
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -84,7 +90,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:layout_marginBottom="12dp"
-                                android:hint="Nummer">
+                                android:hint="Nummer"
+                                app:endIconCheckable="true">
 
                                 <AutoCompleteTextView
                                     android:id="@+id/act_number"
@@ -108,7 +115,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:text="Status" />
+                                android:text="Status"
+                                app:endIconCheckable="true" />
 
                             <RadioGroup
                                 android:id="@+id/radio_group_status"
@@ -247,27 +255,76 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btn_insert"
+                            <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/shadow_rect"
-                                android:backgroundTint="@color/dark_green"
-                                android:text="Speichern"
-                                android:textColor="@color/white" />
+                                android:orientation="horizontal">
 
-                            <ImageButton
-                                android:id="@+id/btn_delete"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/shadow_rect"
-                                android:backgroundTint="@color/dark_green"
-                                android:src="@drawable/ic_baseline_delete_forever_24"
-                                android:textColor="@color/white" />
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_insert"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:background="@drawable/shadow_rect"
+                                    android:backgroundTint="@color/dark_green"
+                                    android:text="Speichern"
+                                    android:textColor="@color/white" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_delete"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@drawable/shadow_rect"
+                                    android:backgroundTint="@color/dark_green"
+                                    android:src="@drawable/ic_baseline_delete_forever_24"
+                                    android:textColor="@color/white" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/layout_error_nummer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:animateLayoutChanges="true"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Die Nummer eingeben."
+                                    android:textColor="@color/red" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/layout_error_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:animateLayoutChanges="true"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/error_text_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Der Status eingeben."
+                                    android:textColor="@color/red" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/layout_error_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:animateLayoutChanges="true"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Die Beschreibung eingeben."
+                                    android:textColor="@color/red" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.cardview.widget.CardView>
 

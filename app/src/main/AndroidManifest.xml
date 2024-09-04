@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="33">
+        <activity
+            android:name=".Model.DatesListCompose"
+            android:exported="false"
+            android:label="@string/title_activity_dates_list_compose"
+            android:theme="@style/Theme.Material3.Light" />
         <activity
             android:name=".Register"
             android:exported="false"
@@ -34,15 +40,14 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".Views.EditRecord"-->
-        <!--            android:theme="@style/Theme.Material3.Light.NoActionBar"-->
-        <!--            android:exported="false">-->
-        <!--            <meta-data-->
-        <!--                android:name="android.app.lib_name"-->
-        <!--                android:value="" />-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".Views.EditRecord" -->
+        <!-- android:theme="@style/Theme.Material3.Light.NoActionBar" -->
+        <!-- android:exported="false"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".Views.EditRecord"
             android:exported="false"
@@ -51,7 +56,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -59,21 +63,18 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".MainActivity"-->
-        <!--            android:theme="@style/Theme.RepairAuth1_0"-->
-        <!--            android:exported="true">-->
-
-        <!--            <meta-data-->
-        <!--                android:name="android.app.lib_name"-->
-        <!--                android:value="" />-->
-        <!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:theme="@style/Theme.RepairAuth1_0" -->
+        <!-- android:exported="true"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".Views.Archiv"
             android:exported="true"
             android:theme="@style/Theme.RepairAuth1_0">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -82,7 +83,6 @@
             android:name=".Views.MessageToAdmin"
             android:exported="true"
             android:theme="@style/Theme.RepairAuth1_0.NoActionBar">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -91,7 +91,6 @@
             android:name=".Views.AccDelActivity"
             android:exported="true"
             android:theme="@style/Theme.RepairAuth1_0.NoActionBar">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

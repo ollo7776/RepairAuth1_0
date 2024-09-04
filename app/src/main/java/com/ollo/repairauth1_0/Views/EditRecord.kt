@@ -1,5 +1,6 @@
 package com.ollo.repairauth1_0.Views
 
+import android.animation.LayoutTransition
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
@@ -8,12 +9,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.constraintlayout.utils.widget.ImageFilterButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +27,7 @@ import com.ollo.repairauth1_0.Data.IconsResource
 import com.ollo.repairauth1_0.Helpers.FireBaseHelper
 import com.ollo.repairauth1_0.Login
 import com.ollo.repairauth1_0.MainActivity
+import com.ollo.repairauth1_0.Model.DatesListAdapter
 import com.ollo.repairauth1_0.Model.IconAdapter
 import com.ollo.repairauth1_0.Model.IconModel
 import com.ollo.repairauth1_0.R
@@ -43,7 +47,10 @@ class EditRecord : AppCompatActivity() {
     private lateinit var tvStatus: TextView
     private lateinit var rvIcons: RecyclerView
 
-    private lateinit var tvCheckDateList: TextView
+    private lateinit var tvCheckDateLastOne: TextView
+    private lateinit var layoutEditDatesExpand: LinearLayoutCompat
+    private lateinit var recyclerDatesOnEditRecord: RecyclerView
+
     private var iconAdapter: IconAdapter? = null
     private lateinit var btnDateNotRepaired: ImageFilterButton
     private lateinit var btnDateRepaired: ImageFilterButton
@@ -59,8 +66,9 @@ class EditRecord : AppCompatActivity() {
         menuItemUser?.setTitle("User logged in: ${user.email}")
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.nav_main -> changeToMainActivity()
             R.id.nav_archive -> goToArchive()
             R.id.nav_logout -> logoutNow()
@@ -88,14 +96,22 @@ class EditRecord : AppCompatActivity() {
         val checkDateListDB = intent.getStringArrayListExtra("checkDateList")
         val endDate = intent.getStringExtra("endDate")
 
-        Log.w(TAG,"Log CheckDateListDB: $checkDateListDB")
+        Log.w(TAG, "Log CheckDateListDB: $checkDateListDB")
         tvId.text = id
         tvNumber.text = number
         tvStartDate.text = startDate
         tvDescription.text = description
         tvTryToRepair.text = tryToRepair
         tvStatus.text = status
-        tvCheckDateList.text = checkDateListDB.toString()
+        tvCheckDateLastOne.text = lastDateForCheckDateTV(checkDateListDB!!)
+        recyclerDatesOnEditRecord.layoutManager = LinearLayoutManager(
+            recyclerDatesOnEditRecord.context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        val datesListAdapter = DatesListAdapter(checkDateListDB!!)
+        recyclerDatesOnEditRecord.adapter = datesListAdapter
+
         iconsList = intent.getIntegerArrayListExtra("iconsList")!!
         currentDateRepaired.text = getDateTimeToday()
         currentDateNotRepaired.text = getDateTimeToday()
@@ -103,9 +119,16 @@ class EditRecord : AppCompatActivity() {
         btnClose.setOnClickListener { changeToMainActivity() }
         btnDelete.setOnClickListener {
             if (id != null) {
-                deleteRecordAndClose(id)
+                deleteRecordAndClose(id, user.email.toString())
             }
         }
+
+        layoutEditDatesExpand.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        tvCheckDateLastOne.setOnClickListener {
+            val v = if (layoutEditDatesExpand.visibility == View.GONE) View.VISIBLE else View.GONE
+            layoutEditDatesExpand.visibility = v
+        }
+
         btnDateNotRepaired.setOnClickListener {
             if (id != null && checkDateListDB != null) confirmBrokeDown(
                 id,
@@ -121,6 +144,15 @@ class EditRecord : AppCompatActivity() {
 
     }
 
+    private fun lastDateForCheckDateTV(checkDateListDB: ArrayList<String>): String {
+        var lastDate = "Keine Einträge"
+        if (checkDateListDB.isNotEmpty()) {
+            val lastIndex = checkDateListDB.size - 1
+            lastDate = checkDateListDB[lastIndex]
+        }
+        return lastDate
+    }
+
     fun initView() {
         tvId = findViewById(R.id.edit_tv_id)
         tvNumber = findViewById(R.id.edit_tv_number)
@@ -129,8 +161,9 @@ class EditRecord : AppCompatActivity() {
         tvTryToRepair = findViewById(R.id.edit_tv_try_to_repair)
         tvStatus = findViewById(R.id.edit_tv_status)
         rvIcons = findViewById(R.id.edit_icon_recyclerview)
-        tvCheckDateList = findViewById(R.id.edit_tv_check_date_list)
-
+        tvCheckDateLastOne = findViewById(R.id.edit_tv_check_date_last_one)
+        layoutEditDatesExpand = findViewById(R.id.layout_edit_dates_expand)
+        recyclerDatesOnEditRecord = findViewById(R.id.rv_dates_on_edit_record)
         btnDateNotRepaired = findViewById(R.id.btn_date_not_repaired)
         btnDateRepaired = findViewById(R.id.btn_date_repaired)
         btnClose = findViewById(R.id.btn_edit_close)
@@ -157,6 +190,7 @@ class EditRecord : AppCompatActivity() {
         val simpleDate = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
         return simpleDate.format(Date()).toString()
     }
+
     fun getDateToday(): String {
         val simpleDate = SimpleDateFormat("dd.MM.yyyy")
         return simpleDate.format(Date()).toString()
@@ -175,20 +209,26 @@ class EditRecord : AppCompatActivity() {
         finish()
     }
 
-    private fun deleteRecordAndClose(id: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Sind Sie sicher, dass dieser Record gelöscht werden muss? Nach Genehmigung durch den Administrator wird der Datensatz gelöscht.")
-        builder.setCancelable(true)
-        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
-            FireBaseHelper.infoToRemove(id)
-            dialog.dismiss()
+    private fun deleteRecordAndClose(id: String, user: String) {
+        if (user == "ollo7776@gmail.com") {
+            FireBaseHelper.deleteRecord(id)
+            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
             changeToMainActivity()
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Sind Sie sicher, dass dieser Record gelöscht werden muss? Nach Genehmigung durch den Administrator wird der Datensatz gelöscht.")
+            builder.setCancelable(true)
+            builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+                FireBaseHelper.infoToRemove(id)
+                dialog.dismiss()
+                changeToMainActivity()
+            }
+            builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            val alert = builder.create()
+            alert.show()
         }
-        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
-            dialog.dismiss()
-        }
-        val alert = builder.create()
-        alert.show()
     }
 
     private fun changeToMainActivity() {
@@ -202,26 +242,36 @@ class EditRecord : AppCompatActivity() {
         var currentDateList = checkDateList
         var dateToday = getDateToday()
         var confirm = false
-        for(date in currentDateList) {
-            val dateNoTime = date.substring(0,10)
+        for (date in currentDateList) {
+            val dateNoTime = date.substring(0, 10)
             if (dateNoTime.equals(dateToday)) {
                 confirm = true
             }
-            if(confirm) break
+            if (confirm) break
         }
-        if(confirm) {
+        if (confirm) {
             val builder = AlertDialog.Builder(this)
             builder.setCancelable(true)
             builder.setMessage("Fehler bereits bestätigt! Danke für Ihre Information")
             builder.setPositiveButton("OK") { dialog, _ ->
                 changeToMainActivity()
-                }
+            }
             builder.show()
 
-        } else  {
-            currentDateList?.add(getDateTimeToday())
-            FireBaseHelper.addCheckDate(id, currentDateList)
-            changeToMainActivity()
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Das Problem weiterhin besteht?")
+            builder.setCancelable(true)
+            builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+                currentDateList?.add(getDateTimeToday())
+                FireBaseHelper.addCheckDate(id, currentDateList)
+                changeToMainActivity()
+            }
+            builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            val alert = builder.create()
+            alert.show()
         }
 
     }

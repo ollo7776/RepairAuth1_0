@@ -26,8 +26,10 @@
     <string name="home">home</string>
     <string name="new_user">Neuer Benutzer</string>
     <string name="info_komplett_entfernen">Sollte es sich bei der Eintragung in dem Rekord um einen Fehler oder dieser Beitrag verstößt gegen die Regeln, melden Sie dies dem Administrator über den Button „KOMPLETT ENTFERNEN“. Nach Freigabe durch den Administrator wird der Eintrag gelöscht.</string>
+    <string name="message_test_user">Wenn Sie die Anwendung testen möchten, verwenden Sie den Testbenutzer. Der Testbenutzer kann sich anmelden und die Anwendung in begrenztem Umfang nutzen. Testbenutzer kann bis zu 10 Einträge hinzufügen. Testbenutzereinträge werden nach 48 Stunden gelöscht. Login: test@ausfallapp.com Passwort: 123456</string>
     <string name="message_to_admin">Falls Sie noch kein Konto bei uns haben. Schreiben Sie eine Nachricht an den Administrator. Nach der Überprüfung erstellt der Administrator ein Konto für Sie.</string>
     <string name="no_account">Sie haben noch kein Konto?</string>
     <string name="account_delete">Konto löschen</string>
     <string name="account_del_msg_long">Bitte löschen Sie mein Konto und alle Benutzerdaten. Bitte geben Sie Informationen zur Bestätigung der Kontolöschung an.</string>
+    <string name="title_activity_dates_list_compose">DatesListCompose</string>
 </resources>

@@ -1,14 +1,13 @@
 package com.ollo.repairauth1_0
 
 import android.animation.LayoutTransition
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -34,6 +33,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.ollo.repairauth1_0.Data.IconsResource
 import com.ollo.repairauth1_0.Helpers.FireBaseHelper
+import com.ollo.repairauth1_0.Model.DatesListAdapter
 import com.ollo.repairauth1_0.Model.IconAdapter
 import com.ollo.repairauth1_0.Model.IconModel
 import com.ollo.repairauth1_0.Model.RecordAdapter
@@ -43,13 +43,18 @@ import com.ollo.repairauth1_0.Views.Archiv
 import com.ollo.repairauth1_0.Views.EditRecord
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
-import java.util.zip.Inflater
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    private var numOfRepairs: String = "0"
 
     private lateinit var actNumber: AutoCompleteTextView
     private lateinit var listNumber: Array<String>
@@ -74,14 +79,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layoutFormExpand: LinearLayoutCompat
     private lateinit var titleFormExpand: TextView
 
-
     private lateinit var btnFetch: AppCompatImageButton
     private lateinit var recyclerView: RecyclerView
     private var adapter: RecordAdapter? = null
     private lateinit var btnInsert: AppCompatButton
+    private lateinit var layoutErrorNumber: LinearLayoutCompat
+    private lateinit var layoutErrorStatus: LinearLayoutCompat
+    private lateinit var layoutErrorDescription: LinearLayoutCompat
     private lateinit var btnDelete: AppCompatImageButton
     private lateinit var progressBar: ProgressBar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         expandLayoutForm()
         fetchRepairs()
+        //fetchTestUserRepairs()
         iconList = arrayListOf()
 
 //        FIREBASE AUTH
@@ -111,7 +118,7 @@ class MainActivity : AppCompatActivity() {
         }
         // btnLogout.setOnClickListener { logoutNow() }
 
-//        DATA FOR REALTME DATABASE
+//        DATA FOR REALTIME DATABASE
         listNumber = resources.getStringArray(R.array.numbers_array)
         val numberAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listNumber)
@@ -151,7 +158,6 @@ class MainActivity : AppCompatActivity() {
             progressMoves()
         }
 
-
         iconAdapter?.setOnClickIcon {
             for (icon in iconsData) {
                 if (icon.imageResourceId == it.imageResourceId) {
@@ -166,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             getIconIdList()
             Log.w(TAG, "IconList: ${iconList}")
         }
-        actNumber.setOnFocusChangeListener {  _, hasFocus ->
+        actNumber.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 progressMoves()
             }
@@ -181,14 +187,14 @@ class MainActivity : AppCompatActivity() {
                 progressMoves()
             }
         }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val menuItemUser = menu?.findItem(R.id.nav_user_name)
         menuItemUser?.setTitle(" ${user.email}")
+//        val numRepairsInMenu = menu?.findItem(R.id.nav_rep_num)
+//        numRepairsInMenu?.title = numOfRepairs
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -196,11 +202,11 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.nav_archive -> goToArchive()
             R.id.nav_logout -> logoutNow()
+            R.id.nav_logout_account -> logoutNow()
             R.id.user_account_delete -> goToUserAccDel()
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun progressMoves() {
         if (actNumber.text.isNotEmpty()) {
@@ -239,6 +245,9 @@ class MainActivity : AppCompatActivity() {
 
         btnFetch = findViewById(R.id.btn_fetch)
         btnInsert = findViewById(R.id.btn_insert)
+        layoutErrorNumber = findViewById(R.id.layout_error_nummer)
+        layoutErrorStatus = findViewById(R.id.layout_error_status)
+        layoutErrorDescription = findViewById(R.id.layout_error_description)
         btnDelete = findViewById(R.id.btn_delete)
         progressBar = findViewById(R.id.progress_bar)
         radioBtnStatus1 = findViewById(R.id.radio_btn_status_1)
@@ -257,9 +266,21 @@ class MainActivity : AppCompatActivity() {
     fun expandLayoutForm() {
         layoutFormExpand.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         cardFormExpand.setOnClickListener {
-            val v = if (layoutFormExpand.visibility == View.GONE) View.VISIBLE else View.GONE
+            val v = if (layoutFormExpand.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             layoutFormExpand.visibility = v
         }
+    }
+
+    fun expandLayoutFormClose() {
+        layoutFormExpand.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        val v = View.GONE
+        layoutFormExpand.visibility = v
+    }
+
+    fun expandLayout(textLayout: LinearLayoutCompat, visible: Boolean) {
+        textLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        val v = if (visible) View.VISIBLE else View.GONE
+        textLayout.visibility = v
     }
 
     fun initRecyclerViewIcons() {
@@ -293,6 +314,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     private fun goToUserAccDel() {
         val intent = Intent(this, AccDelActivity::class.java)
         startActivity(intent)
@@ -311,51 +333,94 @@ class MainActivity : AppCompatActivity() {
             item.iconMarked = 0
         }
         iconAdapter?.notifyDataSetChanged()
-        val v = if (layoutFormExpand.visibility == View.GONE) View.VISIBLE else View.GONE
-        layoutFormExpand.visibility = v
+//        val v = if (layoutFormExpand.visibility == View.GONE) View.VISIBLE else View.GONE
+//        layoutFormExpand.visibility = v
         progressBar.setProgress(10)
     }
 
     private fun insertRepairs() {
-        val checkDateList = arrayListOf<String>()
-        val startDate = getDateTimeToday()
-        val number = actNumber.text.toString()
-        val description = edDescription.text.toString()
-        val tryToRepair = edTryToRepair.text.toString()
-        val status = checkedStatus
-        val iconList = iconList
-        val infoToRemove = false
-        val userEmail = user.email!!
-        if (number.isEmpty()) {
-            actNumber.error = "Nummer eingeben."
-        } else if (description.isEmpty()) {
-            edDescription.error = "Beschreibung eingeben."
-        } else if (tvStatus.text == "Status") {
-            tvStatus.error = "Status wählen."
+        var check = countTestUserEmails()
+        if (check) {
+            testUserDialog()
         } else {
-            var dbMessage: String =
-                FireBaseHelper.insertRepair(
-                    number,
-                    description,
-                    tryToRepair,
-                    status,
-                    iconList,
-                    startDate,
-                    checkDateList,
-                    "",
-                    infoToRemove,
-                    userEmail
-                )
-            if (dbMessage == "0") {
-                Toast.makeText(this, "Daten gespeichert", Toast.LENGTH_SHORT).show()
-            } else if (dbMessage == "1") {
-                Toast.makeText(this, "Error: ${dbMessage}", Toast.LENGTH_SHORT).show()
+            val checkDateList = arrayListOf<String>()
+            val startDate = getDateTimeToday()
+            val number = actNumber.text.toString()
+            val description = edDescription.text.toString()
+            val tryToRepair = edTryToRepair.text.toString()
+            val status = checkedStatus
+            val iconList = iconList
+            val infoToRemove = false
+            val userEmail = user.email!!
+            var valid = true
+
+            if (number.isEmpty()) {
+                valid = false
+                actNumber.error = "Die Nummer eingeben"
+                expandLayout(layoutErrorNumber, true)
+            } else {
+                actNumber.error = null
+                expandLayout(layoutErrorNumber, false)
             }
-            progressBar.setProgress(100)
-            clearEditFields()
-            expandLayoutForm()
+            if (description.isEmpty()) {
+                valid = false
+                edDescription.error = "Die Beschreibung eingeben"
+                expandLayout(layoutErrorDescription, true)
+            } else {
+                edDescription.error = null
+                expandLayout(layoutErrorDescription, false)
+            }
+            if (tvStatus.text == "Status") {
+                valid = false
+                tvStatus.error = "Der Status eingeben"
+                expandLayout(layoutErrorStatus, true)
+            } else {
+                tvStatus.error = null
+                expandLayout(layoutErrorStatus, false)
+            }
+            if (valid) {
+                var dbMessage: String =
+                    FireBaseHelper.insertRepair(
+                        number,
+                        description,
+                        tryToRepair,
+                        status,
+                        iconList,
+                        startDate,
+                        checkDateList,
+                        "",
+                        infoToRemove,
+                        userEmail
+                    )
+                if (dbMessage == "0") {
+                    Toast.makeText(this, "Daten gespeichert", Toast.LENGTH_SHORT).show()
+                    progressBar.setProgress(100)
+                    clearEditFields()
+                    expandLayoutFormClose()
+                } else if (dbMessage == "1") {
+                    Toast.makeText(this, "Error: ${dbMessage}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
+
+
+    private fun countTestUserEmails(): Boolean {
+        return numOfRepairs.toInt() >= 10
+        Log.w(TAG, "numOfRepairs: " + numOfRepairs)
+    }
+
+    fun testUserDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Ein Test User kann nur drei Reparaturen hinzufügen")
+        builder.setCancelable(true)
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alert = builder.create()
+        alert.show()
+    }
+
 
     private fun fetchRepairs() {
         dbRef = FirebaseDatabase.getInstance().getReference("Repairs")
@@ -363,11 +428,28 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 repairsList.clear()
                 if (snapshot.exists()) {
+                    var num = 0
                     for (repairSnap in snapshot.children) {
                         val repairData = repairSnap.getValue(RecordModel::class.java)
                         if (repairData?.endDate == "")
                             repairsList.add(repairData!!)
+                        if (repairData?.userEmail == "test@ausfallapp.com") {
+                            num++
+                        }
+                        val startDateSub = repairData?.startDate?.substringAfter(", ")
+                        val startDateParsed = LocalDate.parse(startDateSub, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                        val currentDate = getDateTimeToday()
+                        val curDateParsed = LocalDate.parse(currentDate, DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy HH:mm:ss"))
+                        val period = Period.between(startDateParsed, curDateParsed).days
+                        //Log.w(TAG, "1: ${repairData?.startDate}")
+                        if (repairData?.userEmail == "test@ausfallapp.com" && period > 2 ) {
+                            FireBaseHelper.deleteRecord(repairData.id)
+                        }
                     }
+                    numOfRepairs = num.toString()
+//                    Log.w(TAG, "numOfRepairs in fetch: $numOfRepairs")
+                    repairsList.sortBy { it.number }
+//                    Log.w(TAG, "numOfRepairs in fetch: ${repairsList}")
                     adapter?.addRecord(repairsList)
                 }
             }
@@ -377,6 +459,15 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+//    private fun convertToCustomFormat(dateStr: String?): String {
+//        val utc = TimeZone.getTimeZone("UTC")
+//        val sourceFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
+//        val destFormat = SimpleDateFormat("dd-MMM-YYYY HH:mm:ss")
+//        sourceFormat.timeZone = utc
+//        val convertedDate = sourceFormat.parse(dateStr)
+//        return destFormat.format(convertedDate)
+//    }
 
 
     private fun editRepair(
@@ -454,20 +545,21 @@ class MainActivity : AppCompatActivity() {
 //        builder.show()
 //    }
 
-    private fun deleteRecord(id: String) {
-        if (id == null) return
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Record löschen?")
-        builder.setCancelable(true)
-        builder.setPositiveButton("JA") { dialog, _ ->
-            FireBaseHelper.deleteRecord(id)
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("NEIN") { dialog, _ ->
-            dialog.dismiss()
-        }
-        val alert = builder.create()
-        alert.show()
-    }
 
+//    private fun deleteRecord(id: String) {
+//        if (id == null) return
+//        val builder = AlertDialog.Builder(this)
+//        builder.setMessage("Record löschen?")
+//        builder.setCancelable(true)
+//        builder.setPositiveButton("JA") { dialog, _ ->
+//            FireBaseHelper.deleteRecord(id)
+//            dialog.dismiss()
+//        }
+//        builder.setNegativeButton("NEIN") { dialog, _ ->
+//            dialog.dismiss()
+//        }
+//        val alert = builder.create()
+//        alert.show()
+//    }
 }
+
